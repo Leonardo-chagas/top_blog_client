@@ -22,11 +22,11 @@ const router = createBrowserRouter([
     element: <Signup/>
   },
   {
-    path: 'selection',
+    path: 'category/:id',
     element: <PostSelection/>
   },
   {
-    path: 'post',
+    path: 'post/:id',
     element: <Post/>
   },
 ])
