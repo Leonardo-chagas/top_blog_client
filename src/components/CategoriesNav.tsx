@@ -10,7 +10,7 @@ function CategoriesNav({categories}:CategoriesNavProps){
         <nav>
             {
                 categories.map((category, index) => (
-                    <Link to={`category/${category.id}`} key={index}>{category.category}</Link>
+                    <Link to={`/category/${category.id}`} key={index}>{category.category}</Link>
                 ))
             }
         </nav>
