@@ -9,7 +9,7 @@ function PostSelection(){
     const [categories, setCategories] = useState<CategoryData[]>([]);
     const {id} = useParams();
     const navigate = useNavigate();
-    const apiUrl = import.meta.env.VITE_API_URL
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         Promise.all([
