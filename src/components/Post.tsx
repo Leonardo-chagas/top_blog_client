@@ -5,13 +5,21 @@ import Comments from "./Comments";
 import axios from "axios";
 import type { CategoryData, PostData, CommentData } from "../types";
 
-function Post(){
+type PostProps = {
+    username: string,
+    addToken: (token:string)=>void,
+    accessToken: string
+}
+
+function Post({username, addToken, accessToken}:PostProps){
     const [categories, setCategories] = useState<CategoryData[]>([]);
     const [post, setPost] = useState<PostData>();
     const [comments, setComments] = useState<CommentData[]>([]);
     const [showForm, setShowForm] = useState(false);
+    const [text, setText] = useState('');
     const {id} = useParams();
     const apiUrl = import.meta.env.VITE_API_URL
+    const user = username
 
     useEffect(() => {
         Promise.all([
@@ -55,6 +63,28 @@ function Post(){
         ])
     }, [id])
 
+    const onTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setText(e.currentTarget.value);
+    }
+
+    async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+        event.preventDefault();
+        console.log(accessToken);
+        await axios.post(apiUrl + "comments/" + id?.toString() + '/' + localStorage.getItem('userId'), {
+            text: text,
+            username: localStorage.getItem('username')
+        }, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        }).then(
+            response => {
+                console.log('success: ', response.data);
+                setText('');
+            }
+        )
+    }
+
     return(
         <div>
             <CategoriesNav categories={categories}/>
@@ -63,8 +93,8 @@ function Post(){
                 <p>{post?.text}</p>
             </div>
             {showForm ? 
-            <form>
-                <textarea></textarea>
+            <form onSubmit={handleSubmit}>
+                <textarea value={text} onChange={onTextChange}></textarea>
                 <button type="submit">Post Comment</button>
             </form> :
             <button onClick={() => setShowForm(true)}>Comment</button>}

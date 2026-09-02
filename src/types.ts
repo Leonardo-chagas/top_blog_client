@@ -28,6 +28,12 @@ export interface CommentData {
   username: string;
 }
 
+export interface TokenData {
+  message: string,
+  token: string,
+  userId: string
+}
+
 // Define the main API response wrapper
 export interface ApiResponse<T> {
   data: T;

@@ -4,7 +4,11 @@ import CategoriesNav from "./CategoriesNav";
 import axios from "axios";
 import type { PostData, CategoryData } from "../types";
 
-function PostSelection(){
+type PostSelectionProps = {
+    username: string
+}
+
+function PostSelection({username}:PostSelectionProps){
     const [posts, setPosts] = useState<PostData[]>([]);
     const [categories, setCategories] = useState<CategoryData[]>([]);
     const {id} = useParams();

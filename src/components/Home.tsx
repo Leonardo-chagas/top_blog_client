@@ -4,7 +4,11 @@ import CategoriesNav from "./CategoriesNav";
 import Header from "./Header";
 import type { CategoryData } from "../types";
 
-function Home(){
+type HomeProps = {
+    username: string
+}
+
+function Home({username}:HomeProps){
     const [categories, setCategories] = useState<CategoryData[]>([]);
     const apiUrl = import.meta.env.VITE_API_URL
 
